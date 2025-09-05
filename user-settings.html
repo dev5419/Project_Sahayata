@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - Project Sahayata</title>
+    <link rel="icon" type="image/x-icon" href="img/sahayata-logo.png">
+    <meta name="description" content="Manage your account settings and preferences in Project Sahayata">
+    <meta name="keywords" content="settings, account, privacy, security, mental health">
+    <meta name="author" content="Project Sahayata">
+    <meta property="og:title" content="Settings - Project Sahayata">
+    <meta property="og:description" content="Manage your account settings and preferences">
+    <meta property="og:type" content="website">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f7fa;
+            color: #333;
+        }
+
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 280px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+        }
+
+        .sidebar-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .sidebar-header img {
+            width: 60px;
+            height: 60px;
+            margin-bottom: 10px;
+        }
+
+        .nav-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            text-decoration: none;
+            color: white;
+            border-radius: 8px;
+            transition: background-color 0.3s;
+        }
+
+        .nav-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-item.active {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .main-content {
+            flex: 1;
+            margin-left: 280px;
+            padding: 30px;
+        }
+
+        .page-header {
+            margin-bottom: 30px;
+        }
+
+        .page-title {
+            font-size: 28px;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 8px;
+        }
+
+        .page-subtitle {
+            color: #7f8c8d;
+            font-size: 16px;
+        }
+
+        .settings-container {
+            max-width: 800px;
+        }
+
+        .settings-section {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #ecf0f1;
+        }
+
+        .setting-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 1px solid #ecf0f1;
+        }
+
+        .setting-item:last-child {
+            border-bottom: none;
+        }
+
+        .setting-info {
+            flex: 1;
+        }
+
+        .setting-label {
+            font-weight: 500;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+
+        .setting-description {
+            color: #7f8c8d;
+            font-size: 14px;
+        }
+
+        .toggle-switch {
+            position: relative;
+            width: 50px;
+            height: 24px;
+            background: #bdc3c7;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .toggle-switch.active {
+            background: #27ae60;
+        }
+
+        .toggle-switch::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: white;
+            border-radius: 50%;
+            top: 2px;
+            left: 2px;
+            transition: transform 0.3s;
+        }
+
+        .toggle-switch.active::after {
+            transform: translateX(26px);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            font-weight: 500;
+            color: #2c3e50;
+            margin-bottom: 8px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ecf0f1;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #5a6fd8;
+        }
+
+        .btn-danger {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #c0392b;
+        }
+
+        .btn-secondary {
+            background: #95a5a6;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #7f8c8d;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .danger-zone {
+            border: 2px solid #e74c3c;
+            border-radius: 8px;
+            padding: 20px;
+            background: #fdf2f2;
+        }
+
+        .danger-zone .section-title {
+            color: #e74c3c;
+            border-bottom-color: #e74c3c;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 15% auto;
+            padding: 30px;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+        }
+
+        .modal-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+
+        .modal-text {
+            color: #7f8c8d;
+            margin-bottom: 20px;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+            }
+
+            .main-content {
+                margin-left: 0;
+                padding: 20px;
+            }
+
+            .setting-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <img src="img/sahayata-logo.png" alt="Project Sahayata">
+                <h3>Project Sahayata</h3>
+            </div>
+            <nav class="nav-menu">
+                <a href="dashboard.html" class="nav-item">
+                    <i>🏠</i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="ai-chat-bot.html" class="nav-item">
+                    <i>🤖</i>
+                    <span>AI Companion</span>
+                </a>
+                <a href="booking.html" class="nav-item">
+                    <i>📅</i>
+                    <span>Book Session</span>
+                </a>
+                <a href="resources.html" class="nav-item">
+                    <i>📚</i>
+                    <span>Resource Hub</span>
+                </a>
+                <a href="forum.html" class="nav-item">
+                    <i>💬</i>
+                    <span>Peer Forum</span>
+                </a>
+                <a href="user-profile.html" class="nav-item">
+                    <i>👤</i>
+                    <span>My Profile</span>
+                </a>
+                <a href="user-settings.html" class="nav-item active">
+                    <i>⚙️</i>
+                    <span>Settings</span>
+                </a>
+                <a href="sign-in.html" class="nav-item">
+                    <i>🚪</i>
+                    <span>Logout</span>
+                </a>
+            </nav>
+        </div>
+
+        <div class="main-content">
+            <div class="page-header">
+                <h1 class="page-title">Settings</h1>
+                <p class="page-subtitle">Manage your account settings and preferences</p>
+            </div>
+
+            <div class="settings-container">
+                <!-- Notifications Section -->
+                <div class="settings-section">
+                    <h3 class="section-title">Notifications</h3>
+                    
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <div class="setting-label">Email Notifications</div>
+                            <div class="setting-description">Receive updates about appointments, resources, and forum activity</div>
+                        </div>
+                        <div class="toggle-switch active" onclick="toggleSetting(this, 'emailNotifications')"></div>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <div class="setting-label">SMS Reminders</div>
+                            <div class="setting-description">Get text message reminders for upcoming appointments</div>
+                        </div>
+                        <div class="toggle-switch" onclick="toggleSetting(this, 'smsReminders')"></div>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <div class="setting-label">Weekly Wellness Check-ins</div>
+                            <div class="setting-description">Receive gentle reminders to check in with your mental health</div>
+                        </div>
+                        <div class="toggle-switch active" onclick="toggleSetting(this, 'weeklyCheckins')"></div>
+                    </div>
+                </div>
+
+                <!-- Privacy Section -->
+                <div class="settings-section">
+                    <h3 class="section-title">Privacy & Security</h3>
+                    
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <div class="setting-label">Anonymous Forum Posts</div>
+                            <div class="setting-description">Post in the forum without revealing your identity</div>
+                        </div>
+                        <div class="toggle-switch active" onclick="toggleSetting(this, 'anonymousPosts')"></div>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <div class="setting-label">Data Analytics</div>
+                            <div class="setting-description">Allow anonymized data to help improve the platform</div>
+                        </div>
+                        <div class="toggle-switch active" onclick="toggleSetting(this, 'dataAnalytics')"></div>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <div class="setting-label">Session History</div>
+                            <div class="setting-description">Keep a record of your chat sessions for personal reference</div>
+                        </div>
+                        <div class="toggle-switch active" onclick="toggleSetting(this, 'sessionHistory')"></div>
+                    </div>
+                </div>
+
+                <!-- Account Section -->
+                <div class="settings-section">
+                    <h3 class="section-title">Account</h3>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Current Password</label>
+                        <input type="password" class="form-input" id="currentPassword" placeholder="Enter current password">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">New Password</label>
+                        <input type="password" class="form-input" id="newPassword" placeholder="Enter new password">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Confirm New Password</label>
+                        <input type="password" class="form-input" id="confirmPassword" placeholder="Confirm new password">
+                    </div>
+                    
+                    <div class="button-group">
+                        <button class="btn btn-primary" onclick="changePassword()">Change Password</button>
+                        <a href="#" class="btn btn-secondary" onclick="showForgotPassword()">Forgot Password?</a>
+                    </div>
+                </div>
+
+                <!-- Data Management Section -->
+                <div class="settings-section">
+                    <h3 class="section-title">Data Management</h3>
+                    
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <div class="setting-label">Export My Data</div>
+                            <div class="setting-description">Download a copy of all your data from the platform</div>
+                        </div>
+                        <button class="btn btn-primary" onclick="exportData()">Export</button>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <div class="setting-label">Clear Chat History</div>
+                            <div class="setting-description">Permanently delete all your AI chat conversations</div>
+                        </div>
+                        <button class="btn btn-secondary" onclick="clearChatHistory()">Clear</button>
+                    </div>
+                </div>
+
+                <!-- Danger Zone -->
+                <div class="settings-section danger-zone">
+                    <h3 class="section-title">Danger Zone</h3>
+                    
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <div class="setting-label">Deactivate Account</div>
+                            <div class="setting-description">Temporarily disable your account. You can reactivate it later.</div>
+                        </div>
+                        <button class="btn btn-secondary" onclick="deactivateAccount()">Deactivate</button>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <div class="setting-label">Delete Account</div>
+                            <div class="setting-description">Permanently delete your account and all associated data. This action cannot be undone.</div>
+                        </div>
+                        <button class="btn btn-danger" onclick="deleteAccount()">Delete Account</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirmation Modal -->
+    <div id="confirmationModal" class="modal">
+        <div class="modal-content">
+            <h3 class="modal-title" id="modalTitle">Confirm Action</h3>
+            <p class="modal-text" id="modalText">Are you sure you want to perform this action?</p>
+            <div class="modal-buttons">
+                <button class="btn btn-primary" id="confirmBtn">Confirm</button>
+                <button class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Toggle settings
+        function toggleSetting(element, setting) {
+            element.classList.toggle('active');
+            
+            // In a real app, this would save to the backend
+            console.log(`${setting}: ${element.classList.contains('active')}`);
+            
+            // Show feedback
+            const status = element.classList.contains('active') ? 'enabled' : 'disabled';
+            showNotification(`${setting} ${status}`);
+        }
+
+        // Change password
+        function changePassword() {
+            const currentPassword = document.getElementById('currentPassword').value;
+            const newPassword = document.getElementById('newPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+
+            if (!currentPassword || !newPassword || !confirmPassword) {
+                alert('Please fill in all password fields');
+                return;
+            }
+
+            if (newPassword !== confirmPassword) {
+                alert('New passwords do not match');
+                return;
+            }
+
+            if (newPassword.length < 8) {
+                alert('New password must be at least 8 characters long');
+                return;
+            }
+
+            // In a real app, this would send to the backend
+            console.log('Changing password...');
+            
+            // Clear form
+            document.getElementById('currentPassword').value = '';
+            document.getElementById('newPassword').value = '';
+            document.getElementById('confirmPassword').value = '';
+            
+            showNotification('Password changed successfully');
+        }
+
+        // Show forgot password
+        function showForgotPassword() {
+            alert('Please contact your institution\'s IT department to reset your password.');
+        }
+
+        // Export data
+        function exportData() {
+            showModal(
+                'Export Data',
+                'This will download a copy of all your data including profile information, chat history, and forum posts. The download may take a few minutes.',
+                () => {
+                    // In a real app, this would trigger a download
+                    console.log('Exporting data...');
+                    showNotification('Data export started. You will receive an email when it\'s ready.');
+                    closeModal();
+                }
+            );
+        }
+
+        // Clear chat history
+        function clearChatHistory() {
+            showModal(
+                'Clear Chat History',
+                'This will permanently delete all your AI chat conversations. This action cannot be undone.',
+                () => {
+                    // In a real app, this would delete from the backend
+                    console.log('Clearing chat history...');
+                    showNotification('Chat history cleared successfully');
+                    closeModal();
+                }
+            );
+        }
+
+        // Deactivate account
+        function deactivateAccount() {
+            showModal(
+                'Deactivate Account',
+                'Your account will be temporarily disabled. You can reactivate it by logging in again.',
+                () => {
+                    // In a real app, this would deactivate the account
+                    console.log('Deactivating account...');
+                    showNotification('Account deactivated');
+                    closeModal();
+                    setTimeout(() => {
+                        window.location.href = 'sign-in.html';
+                    }, 2000);
+                }
+            );
+        }
+
+        // Delete account
+        function deleteAccount() {
+            showModal(
+                'Delete Account',
+                'This will permanently delete your account and all associated data. This action cannot be undone. Are you absolutely sure?',
+                () => {
+                    // In a real app, this would delete the account
+                    console.log('Deleting account...');
+                    showNotification('Account deleted successfully');
+                    closeModal();
+                    setTimeout(() => {
+                        window.location.href = 'index.html';
+                    }, 2000);
+                }
+            );
+        }
+
+        // Modal functions
+        function showModal(title, text, onConfirm) {
+            document.getElementById('modalTitle').textContent = title;
+            document.getElementById('modalText').textContent = text;
+            document.getElementById('confirmationModal').style.display = 'block';
+            
+            // Set up confirm button
+            const confirmBtn = document.getElementById('confirmBtn');
+            confirmBtn.onclick = onConfirm;
+        }
+
+        function closeModal() {
+            document.getElementById('confirmationModal').style.display = 'none';
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('confirmationModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+
+        // Show notification
+        function showNotification(message) {
+            // In a real app, this would show a proper notification
+            console.log('Notification:', message);
+            alert(message);
+        }
+
+        // Load settings on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            // In a real app, this would load settings from the backend
+            console.log('Loading settings...');
+        });
+    </script>
+</body>
+</html>

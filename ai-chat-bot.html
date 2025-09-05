@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">   
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<!-- Favicons -->
+<link href="img/sahayata-logo.png" rel="icon">
+<link href="img/sahayata-logo.png" rel="Project Sahayata">
+<meta name="description" content="AI Wellness Companion - 24/7 confidential mental health support">
+
+<title>AI Wellness Companion - Project Sahayata</title>
+
+<script>
+	if (!localStorage.frenify_skin) {
+		localStorage.frenify_skin = 'light';
+	}
+	if (!localStorage.frenify_panel) {
+		localStorage.frenify_panel = '';
+	}
+	document.documentElement.setAttribute("data-techwave-skin", localStorage.frenify_skin);
+	if(localStorage.frenify_panel !== ''){
+		document.documentElement.classList.add(localStorage.frenify_panel);
+	}
+</script>
+
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com/">
+<link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@100;200;300;400;500;600;700;800;900&amp;family=Work+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap" rel="stylesheet">
+
+<!-- Styles -->
+<link type="text/css" rel="stylesheet" href="css/plugins8a54.css?ver=1.0.0" />
+<link type="text/css" rel="stylesheet" href="css/style8a54.css?ver=1.0.0" />
+<style>
+	body {
+		margin: 0;
+		padding: 0;
+		font-family: 'Work Sans', sans-serif;
+		background: #f8f9fa;
+		height: 100vh;
+		overflow: hidden;
+	}
+	
+	/* Navigation */
+	.sidebar {
+		position: fixed;
+		left: 0;
+		top: 0;
+		width: 250px;
+		height: 100vh;
+		background: white;
+		box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+		z-index: 1000;
+	}
+	
+	.sidebar-header {
+		padding: 20px;
+		border-bottom: 1px solid #e1e5e9;
+	}
+	
+	.sidebar-header img {
+		height: 40px;
+	}
+	
+	.nav-menu {
+		padding: 20px 0;
+	}
+	
+	.nav-item {
+		padding: 15px 20px;
+		display: flex;
+		align-items: center;
+		gap: 15px;
+		text-decoration: none;
+		color: #555;
+		transition: all 0.3s ease;
+		border-left: 3px solid transparent;
+	}
+	
+	.nav-item:hover, .nav-item.active {
+		background: #f8f9fa;
+		color: #667eea;
+		border-left-color: #667eea;
+	}
+	
+	.nav-item i {
+		font-size: 1.2rem;
+		width: 20px;
+	}
+	
+	/* Chat Interface */
+	.chat-container {
+		margin-left: 250px;
+		height: 100vh;
+		display: flex;
+		flex-direction: column;
+	}
+	
+	.chat-header {
+		background: white;
+		padding: 20px 30px;
+		border-bottom: 1px solid #e1e5e9;
+		box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+	}
+	
+	.chat-title {
+		font-size: 1.5rem;
+		font-weight: 700;
+		color: #333;
+		margin-bottom: 5px;
+	}
+	
+	.chat-subtitle {
+		color: #666;
+		font-size: 0.9rem;
+	}
+	
+	.chat-messages {
+		flex: 1;
+		padding: 20px;
+		overflow-y: auto;
+		background: #f8f9fa;
+	}
+	
+	.message {
+		margin-bottom: 20px;
+		display: flex;
+		gap: 15px;
+	}
+	
+	.message.user {
+		flex-direction: row-reverse;
+	}
+	
+	.message-avatar {
+		width: 40px;
+		height: 40px;
+		border-radius: 50%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-size: 1.2rem;
+		flex-shrink: 0;
+	}
+	
+	.message.user .message-avatar {
+		background: #667eea;
+		color: white;
+	}
+	
+	.message.ai .message-avatar {
+		background: #4CAF50;
+		color: white;
+	}
+	
+	.message-content {
+		max-width: 70%;
+		padding: 15px 20px;
+		border-radius: 20px;
+		line-height: 1.5;
+	}
+	
+	.message.user .message-content {
+		background: #667eea;
+		color: white;
+		border-bottom-right-radius: 5px;
+	}
+	
+	.message.ai .message-content {
+		background: white;
+		color: #333;
+		border-bottom-left-radius: 5px;
+		box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+	}
+	
+	.message-time {
+		font-size: 0.8rem;
+		color: #999;
+		margin-top: 5px;
+		text-align: center;
+	}
+	
+	/* Suggestion Chips */
+	.suggestion-chips {
+		padding: 20px;
+		background: white;
+		border-top: 1px solid #e1e5e9;
+	}
+	
+	.chips-container {
+		display: flex;
+		gap: 10px;
+		flex-wrap: wrap;
+	}
+	
+	.suggestion-chip {
+		padding: 10px 20px;
+		background: #f0f4ff;
+		color: #667eea;
+		border: 1px solid #e1e5e9;
+		border-radius: 20px;
+		cursor: pointer;
+		transition: all 0.3s ease;
+		font-size: 0.9rem;
+	}
+	
+	.suggestion-chip:hover {
+		background: #667eea;
+		color: white;
+	}
+	
+	/* Input Area */
+	.chat-input {
+		padding: 20px;
+		background: white;
+		border-top: 1px solid #e1e5e9;
+	}
+	
+	.input-container {
+		display: flex;
+		gap: 15px;
+		align-items: flex-end;
+	}
+	
+	.message-input {
+		flex: 1;
+		padding: 15px 20px;
+		border: 2px solid #e1e5e9;
+		border-radius: 25px;
+		font-size: 1rem;
+		resize: none;
+		min-height: 50px;
+		max-height: 120px;
+		font-family: inherit;
+	}
+	
+	.message-input:focus {
+		outline: none;
+		border-color: #667eea;
+	}
+	
+	.send-button {
+		padding: 15px 25px;
+		background: #4CAF50;
+		color: white;
+		border: none;
+		border-radius: 25px;
+		cursor: pointer;
+		font-size: 1rem;
+		transition: background 0.3s ease;
+	}
+	
+	.send-button:hover {
+		background: #45a049;
+	}
+	
+	.send-button:disabled {
+		background: #ccc;
+		cursor: not-allowed;
+	}
+	
+	/* Emergency Modal */
+	.emergency-modal {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background: rgba(0,0,0,0.8);
+		display: none;
+		align-items: center;
+		justify-content: center;
+		z-index: 10000;
+	}
+	
+	.emergency-content {
+		background: white;
+		padding: 40px;
+		border-radius: 20px;
+		max-width: 500px;
+		text-align: center;
+		box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+	}
+	
+	.emergency-icon {
+		font-size: 4rem;
+		margin-bottom: 20px;
+	}
+	
+	.emergency-title {
+		font-size: 1.8rem;
+		font-weight: 700;
+		color: #f44336;
+		margin-bottom: 15px;
+	}
+	
+	.emergency-text {
+		color: #666;
+		line-height: 1.6;
+		margin-bottom: 30px;
+	}
+	
+	.emergency-buttons {
+		display: flex;
+		gap: 15px;
+		justify-content: center;
+		flex-wrap: wrap;
+	}
+	
+	.emergency-btn {
+		padding: 15px 25px;
+		border: none;
+		border-radius: 10px;
+		font-size: 1rem;
+		font-weight: 600;
+		cursor: pointer;
+		text-decoration: none;
+		display: inline-block;
+		transition: all 0.3s ease;
+	}
+	
+	.emergency-btn.primary {
+		background: #f44336;
+		color: white;
+	}
+	
+	.emergency-btn.secondary {
+		background: #667eea;
+		color: white;
+	}
+	
+	.emergency-btn:hover {
+		transform: translateY(-2px);
+		box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+	}
+	
+	/* Typing Indicator */
+	.typing-indicator {
+		display: none;
+		padding: 15px 20px;
+		background: white;
+		border-radius: 20px;
+		border-bottom-left-radius: 5px;
+		box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+		margin-bottom: 20px;
+	}
+	
+	.typing-dots {
+		display: flex;
+		gap: 5px;
+	}
+	
+	.typing-dot {
+		width: 8px;
+		height: 8px;
+		background: #999;
+		border-radius: 50%;
+		animation: typing 1.4s infinite ease-in-out;
+	}
+	
+	.typing-dot:nth-child(1) { animation-delay: -0.32s; }
+	.typing-dot:nth-child(2) { animation-delay: -0.16s; }
+	
+	@keyframes typing {
+		0%, 80%, 100% { transform: scale(0); }
+		40% { transform: scale(1); }
+	}
+</style>
+</head>
+
+<body>
+
+<!-- Sidebar Navigation -->
+<div class="sidebar">
+	<div class="sidebar-header">
+		<img src="img/sahayata-logo.png" alt="Project Sahayata">
+	</div>
+	
+	<nav class="nav-menu">
+		<a href="dashboard.html" class="nav-item">
+			<i>🏠</i>
+			<span>Dashboard</span>
+		</a>
+		<a href="ai-chat-bot.html" class="nav-item active">
+			<i>🤖</i>
+			<span>AI Companion</span>
+		</a>
+		<a href="booking.html" class="nav-item">
+			<i>👨‍⚕️</i>
+			<span>Book Session</span>
+		</a>
+		<a href="resources.html" class="nav-item">
+			<i>📚</i>
+			<span>Resource Hub</span>
+		</a>
+		<a href="forum.html" class="nav-item">
+			<i>👥</i>
+			<span>Peer Forum</span>
+		</a>
+		<a href="user-profile.html" class="nav-item">
+			<i>👤</i>
+			<span>My Profile</span>
+		</a>
+		<a href="sign-in.html" class="nav-item">
+			<i>🚪</i>
+			<span>Logout</span>
+		</a>
+	</nav>
+</div>
+
+<!-- Chat Interface -->
+<div class="chat-container">
+	<!-- Chat Header -->
+	<div class="chat-header">
+		<h1 class="chat-title">AI Wellness Companion</h1>
+		<p class="chat-subtitle">24/7 confidential support • Your conversations are private and secure</p>
+	</div>
+	
+	<!-- Chat Messages -->
+	<div class="chat-messages" id="chatMessages">
+		<!-- Welcome message -->
+		<div class="message ai">
+			<div class="message-avatar">🤖</div>
+			<div class="message-content">
+				<p>Hello! I'm your AI wellness companion. I'm here to provide confidential support and guidance whenever you need someone to talk to. How are you feeling today?</p>
+			</div>
+		</div>
+		<div class="message-time">Just now</div>
+	</div>
+	
+	<!-- Typing Indicator -->
+	<div class="typing-indicator" id="typingIndicator">
+		<div class="typing-dots">
+			<div class="typing-dot"></div>
+			<div class="typing-dot"></div>
+			<div class="typing-dot"></div>
+		</div>
+	</div>
+	
+	<!-- Suggestion Chips -->
+	<div class="suggestion-chips">
+		<div class="chips-container">
+			<div class="suggestion-chip" onclick="sendSuggestion('I\'m feeling anxious')">I'm feeling anxious</div>
+			<div class="suggestion-chip" onclick="sendSuggestion('Tell me a breathing exercise')">Tell me a breathing exercise</div>
+			<div class="suggestion-chip" onclick="sendSuggestion('I\'m having trouble sleeping')">I'm having trouble sleeping</div>
+			<div class="suggestion-chip" onclick="sendSuggestion('I feel overwhelmed with studies')">I feel overwhelmed with studies</div>
+			<div class="suggestion-chip" onclick="sendSuggestion('I\'m feeling lonely')">I'm feeling lonely</div>
+			<div class="suggestion-chip" onclick="sendSuggestion('Help me relax')">Help me relax</div>
+		</div>
+	</div>
+	
+	<!-- Chat Input -->
+	<div class="chat-input">
+		<div class="input-container">
+			<textarea 
+				class="message-input" 
+				id="messageInput" 
+				placeholder="Type your message here..."
+				rows="1"
+			></textarea>
+			<button class="send-button" id="sendButton" onclick="sendMessage()">Send</button>
+		</div>
+	</div>
+</div>
+
+<!-- Emergency Modal -->
+<div class="emergency-modal" id="emergencyModal">
+	<div class="emergency-content">
+		<div class="emergency-icon">🚨</div>
+		<h2 class="emergency-title">Emergency Support</h2>
+		<p class="emergency-text">
+			If you're experiencing thoughts of self-harm or are in crisis, please reach out to these emergency resources immediately. You're not alone, and help is available.
+		</p>
+		<div class="emergency-buttons">
+			<a href="tel:911" class="emergency-btn primary">Call Emergency (911)</a>
+			<a href="tel:988" class="emergency-btn secondary">Suicide Prevention (988)</a>
+			<a href="booking.html" class="emergency-btn secondary">Book Emergency Session</a>
+		</div>
+		<button class="emergency-btn" onclick="closeEmergencyModal()" style="margin-top: 20px; background: #666;">Continue Chat</button>
+	</div>
+</div>
+
+<!-- Scripts -->
+<script type="text/javascript" src="js/jquery8a54.js?ver=1.0.0"></script>
+<script type="text/javascript" src="js/plugins8a54.js?ver=1.0.0"></script>
+<script type="text/javascript" src="js/init8a54.js?ver=1.0.0"></script>
+
+<script>
+// Chat functionality
+let chatHistory = [];
+
+// High-risk keywords that trigger emergency modal
+const emergencyKeywords = [
+	'suicide', 'kill myself', 'want to die', 'end my life', 'self-harm', 
+	'hurt myself', 'no reason to live', 'better off dead', 'give up',
+	'can\'t take it anymore', 'tired of living'
+];
+
+function sendMessage() {
+	const input = document.getElementById('messageInput');
+	const message = input.value.trim();
+	
+	if (message === '') return;
+	
+	// Add user message to chat
+	addMessage(message, 'user');
+	input.value = '';
+	
+	// Check for emergency keywords
+	if (checkEmergencyKeywords(message)) {
+		showEmergencyModal();
+		return;
+	}
+	
+	// Show typing indicator
+	showTypingIndicator();
+	
+	// Simulate AI response
+	setTimeout(() => {
+		hideTypingIndicator();
+		const response = generateAIResponse(message);
+		addMessage(response, 'ai');
+	}, 1500 + Math.random() * 1000);
+}
+
+function sendSuggestion(text) {
+	document.getElementById('messageInput').value = text;
+	sendMessage();
+}
+
+function addMessage(text, sender) {
+	const chatMessages = document.getElementById('chatMessages');
+	const messageDiv = document.createElement('div');
+	messageDiv.className = `message ${sender}`;
+	
+	const avatar = document.createElement('div');
+	avatar.className = 'message-avatar';
+	avatar.textContent = sender === 'user' ? '👤' : '🤖';
+	
+	const content = document.createElement('div');
+	content.className = 'message-content';
+	content.innerHTML = `<p>${text}</p>`;
+	
+	messageDiv.appendChild(avatar);
+	messageDiv.appendChild(content);
+	
+	// Add timestamp
+	const timeDiv = document.createElement('div');
+	timeDiv.className = 'message-time';
+	timeDiv.textContent = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+	
+	chatMessages.appendChild(messageDiv);
+	chatMessages.appendChild(timeDiv);
+	
+	// Scroll to bottom
+	chatMessages.scrollTop = chatMessages.scrollHeight;
+	
+	// Store in history
+	chatHistory.push({text, sender, timestamp: new Date()});
+}
+
+function showTypingIndicator() {
+	document.getElementById('typingIndicator').style.display = 'block';
+	document.getElementById('chatMessages').scrollTop = document.getElementById('chatMessages').scrollHeight;
+}
+
+function hideTypingIndicator() {
+	document.getElementById('typingIndicator').style.display = 'none';
+}
+
+function checkEmergencyKeywords(message) {
+	const lowerMessage = message.toLowerCase();
+	return emergencyKeywords.some(keyword => lowerMessage.includes(keyword));
+}
+
+function showEmergencyModal() {
+	document.getElementById('emergencyModal').style.display = 'flex';
+}
+
+function closeEmergencyModal() {
+	document.getElementById('emergencyModal').style.display = 'none';
+}
+
+function generateAIResponse(userMessage) {
+	const lowerMessage = userMessage.toLowerCase();
+	
+	// Simple response logic - in a real app, this would be more sophisticated
+	if (lowerMessage.includes('anxious') || lowerMessage.includes('anxiety')) {
+		return "I understand that anxiety can be really overwhelming. Let's try a simple breathing exercise together: Take a deep breath in for 4 counts, hold for 4, then breathe out for 4. Repeat this a few times. Would you like to talk more about what's causing your anxiety?";
+	}
+	
+	if (lowerMessage.includes('breathing')) {
+		return "Here's a calming breathing technique: 1) Sit comfortably and close your eyes. 2) Breathe in slowly through your nose for 4 seconds. 3) Hold your breath for 4 seconds. 4) Exhale slowly through your mouth for 6 seconds. 5) Repeat 5-10 times. How does that feel?";
+	}
+	
+	if (lowerMessage.includes('sleep') || lowerMessage.includes('insomnia')) {
+		return "Sleep issues are really common among students. Try creating a bedtime routine: turn off screens an hour before bed, read a book, and practice relaxation techniques. Would you like some specific tips for better sleep hygiene?";
+	}
+	
+	if (lowerMessage.includes('overwhelmed') || lowerMessage.includes('stress')) {
+		return "It sounds like you're dealing with a lot right now. Remember, it's okay to take breaks and ask for help. Let's break this down - what's the most pressing thing you need to address first?";
+	}
+	
+	if (lowerMessage.includes('lonely') || lowerMessage.includes('alone')) {
+		return "Feeling lonely is really difficult, and it's more common than you might think. Have you considered reaching out to classmates or joining a study group? Sometimes small connections can make a big difference. Would you like to talk about ways to build more social connections?";
+	}
+	
+	if (lowerMessage.includes('relax')) {
+		return "Let's try a quick relaxation exercise: Tense all your muscles for 5 seconds, then release them completely. Notice how your body feels when it's relaxed. You can also try progressive muscle relaxation - would you like me to guide you through that?";
+	}
+	
+	// Default responses
+	const defaultResponses = [
+		"I hear you, and I'm here to listen. Can you tell me more about how you're feeling?",
+		"That sounds really challenging. What do you think would be most helpful right now?",
+		"I appreciate you sharing that with me. How long have you been feeling this way?",
+		"Thank you for opening up. What would you like to focus on today?",
+		"I'm here to support you. What's on your mind?"
+	];
+	
+	return defaultResponses[Math.floor(Math.random() * defaultResponses.length)];
+}
+
+// Auto-resize textarea
+document.getElementById('messageInput').addEventListener('input', function() {
+	this.style.height = 'auto';
+	this.style.height = Math.min(this.scrollHeight, 120) + 'px';
+});
+
+// Send message on Enter key
+document.getElementById('messageInput').addEventListener('keypress', function(e) {
+	if (e.key === 'Enter' && !e.shiftKey) {
+		e.preventDefault();
+		sendMessage();
+	}
+});
+</script>
+
+</body>
+</html>

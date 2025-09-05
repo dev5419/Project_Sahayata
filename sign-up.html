@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">   
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<!-- Favicons -->
+<link href="img/sahayata-logo.png" rel="icon">
+<link href="img/sahayata-logo.png" rel="Project Sahayata">
+<meta name="description" content="Sign up for Project Sahayata - Your Safe Space for Mental Wellness">
+
+<title>Sign Up - Project Sahayata</title>
+
+<script>
+	if (!localStorage.frenify_skin) {
+		localStorage.frenify_skin = 'light';
+	}
+	if (!localStorage.frenify_panel) {
+		localStorage.frenify_panel = '';
+	}
+	document.documentElement.setAttribute("data-techwave-skin", localStorage.frenify_skin);
+	if(localStorage.frenify_panel !== ''){
+		document.documentElement.classList.add(localStorage.frenify_panel);
+	}
+</script>
+
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com/">
+<link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@100;200;300;400;500;600;700;800;900&amp;family=Work+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap" rel="stylesheet">
+
+<!-- Styles -->
+<link type="text/css" rel="stylesheet" href="css/plugins8a54.css?ver=1.0.0" />
+<link type="text/css" rel="stylesheet" href="css/style8a54.css?ver=1.0.0" />
+<style>
+	.signup-container {
+		min-height: 100vh;
+		background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding: 20px;
+	}
+	.signup-card {
+		background: white;
+		border-radius: 20px;
+		padding: 40px;
+		box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+		max-width: 500px;
+		width: 100%;
+	}
+	.logo-section {
+		text-align: center;
+		margin-bottom: 30px;
+	}
+	.logo-section img {
+		height: 60px;
+		margin-bottom: 15px;
+	}
+	.form-title {
+		font-size: 2rem;
+		font-weight: 700;
+		color: #333;
+		margin-bottom: 30px;
+		text-align: center;
+	}
+	.form-group {
+		margin-bottom: 20px;
+	}
+	.form-group label {
+		display: block;
+		margin-bottom: 8px;
+		font-weight: 600;
+		color: #555;
+	}
+	.form-group input {
+		width: 100%;
+		padding: 12px 15px;
+		border: 2px solid #e1e5e9;
+		border-radius: 10px;
+		font-size: 16px;
+		transition: border-color 0.3s ease;
+	}
+	.form-group input:focus {
+		outline: none;
+		border-color: #667eea;
+	}
+	.terms-checkbox {
+		display: flex;
+		align-items: flex-start;
+		gap: 10px;
+		margin: 20px 0;
+	}
+	.terms-checkbox input[type="checkbox"] {
+		width: auto;
+		margin-top: 3px;
+	}
+	.terms-checkbox label {
+		font-size: 14px;
+		line-height: 1.4;
+	}
+	.terms-checkbox a {
+		color: #667eea;
+		text-decoration: none;
+	}
+	.submit-btn {
+		width: 100%;
+		padding: 15px;
+		background: #4CAF50;
+		color: white;
+		border: none;
+		border-radius: 10px;
+		font-size: 16px;
+		font-weight: 600;
+		cursor: pointer;
+		transition: background 0.3s ease;
+	}
+	.submit-btn:hover {
+		background: #45a049;
+	}
+	.login-link {
+		text-align: center;
+		margin-top: 20px;
+	}
+	.login-link a {
+		color: #667eea;
+		text-decoration: none;
+		font-weight: 600;
+	}
+	.error-message {
+		color: #f44336;
+		font-size: 14px;
+		margin-top: 5px;
+		display: none;
+	}
+</style>
+</head>
+
+<body>
+
+<div class="signup-container">
+	<div class="signup-card">
+		<div class="logo-section">
+			<img src="img/sahayata-logo.png" alt="Project Sahayata">
+			<h1 class="form-title">Create Your Account</h1>
+		</div>
+		
+		<form id="signupForm">
+			<div class="form-group">
+				<label for="fullName">Full Name</label>
+				<input type="text" id="fullName" name="fullName" placeholder="Enter your full name" required>
+				<div class="error-message" id="fullNameError"></div>
+			</div>
+			
+			<div class="form-group">
+				<label for="studentId">Student ID</label>
+				<input type="text" id="studentId" name="studentId" placeholder="Enter your student ID" required>
+				<div class="error-message" id="studentIdError"></div>
+			</div>
+			
+			<div class="form-group">
+				<label for="email">Email Address</label>
+				<input type="email" id="email" name="email" placeholder="your.email@university.edu" required>
+				<div class="error-message" id="emailError"></div>
+			</div>
+			
+			<div class="form-group">
+				<label for="password">Password</label>
+				<input type="password" id="password" name="password" placeholder="Create a strong password" required>
+				<div class="error-message" id="passwordError"></div>
+			</div>
+			
+			<div class="form-group">
+				<label for="confirmPassword">Confirm Password</label>
+				<input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm your password" required>
+				<div class="error-message" id="confirmPasswordError"></div>
+			</div>
+			
+			<div class="terms-checkbox">
+				<input type="checkbox" id="termsAccepted" name="termsAccepted" required>
+				<label for="termsAccepted">
+					I agree to the <a href="terms.html" target="_blank">Terms of Service</a> and <a href="privacy.html" target="_blank">Privacy Policy</a>. 
+					I understand that this platform is for current students only and my information will be verified against the university database.
+				</label>
+			</div>
+			
+			<button type="submit" class="submit-btn">Create Account</button>
+		</form>
+		
+		<div class="login-link">
+			<p>Already have an account? <a href="sign-in.html">Sign In</a></p>
+		</div>
+	</div>
+</div>
+
+<!-- Scripts -->
+<script type="text/javascript" src="js/jquery8a54.js?ver=1.0.0"></script>
+<script type="text/javascript" src="js/plugins8a54.js?ver=1.0.0"></script>
+<script type="text/javascript" src="js/init8a54.js?ver=1.0.0"></script>
+
+<script>
+document.getElementById('signupForm').addEventListener('submit', function(e) {
+	e.preventDefault();
+	
+	// Reset error messages
+	document.querySelectorAll('.error-message').forEach(el => el.style.display = 'none');
+	
+	// Get form values
+	const fullName = document.getElementById('fullName').value.trim();
+	const studentId = document.getElementById('studentId').value.trim();
+	const email = document.getElementById('email').value.trim();
+	const password = document.getElementById('password').value;
+	const confirmPassword = document.getElementById('confirmPassword').value;
+	const termsAccepted = document.getElementById('termsAccepted').checked;
+	
+	// Validation
+	let isValid = true;
+	
+	if (fullName.length < 2) {
+		showError('fullNameError', 'Please enter your full name');
+		isValid = false;
+	}
+	
+	if (studentId.length < 3) {
+		showError('studentIdError', 'Please enter a valid student ID');
+		isValid = false;
+	}
+	
+	if (!isValidEmail(email)) {
+		showError('emailError', 'Please enter a valid email address');
+		isValid = false;
+	}
+	
+	if (password.length < 8) {
+		showError('passwordError', 'Password must be at least 8 characters long');
+		isValid = false;
+	}
+	
+	if (password !== confirmPassword) {
+		showError('confirmPasswordError', 'Passwords do not match');
+		isValid = false;
+	}
+	
+	if (!termsAccepted) {
+		alert('Please accept the Terms of Service to continue');
+		isValid = false;
+	}
+	
+	if (isValid) {
+		// Here you would typically send the data to your backend
+		console.log('Form submitted:', { fullName, studentId, email, password, termsAccepted });
+		
+		// For demo purposes, redirect to dashboard
+		alert('Account created successfully! Redirecting to dashboard...');
+		window.location.href = 'dashboard.html';
+	}
+});
+
+function showError(elementId, message) {
+	const errorElement = document.getElementById(elementId);
+	errorElement.textContent = message;
+	errorElement.style.display = 'block';
+}
+
+function isValidEmail(email) {
+	const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+	return emailRegex.test(email);
+}
+</script>
+
+</body>
+</html>

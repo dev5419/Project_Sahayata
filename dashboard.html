@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">   
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<!-- Favicons -->
+<link href="img/sahayata-logo.png" rel="icon">
+<link href="img/sahayata-logo.png" rel="Project Sahayata">
+<meta name="description" content="Dashboard - Project Sahayata Mental Wellness Platform">
+
+<title>Dashboard - Project Sahayata</title>
+
+<script>
+	if (!localStorage.frenify_skin) {
+		localStorage.frenify_skin = 'light';
+	}
+	if (!localStorage.frenify_panel) {
+		localStorage.frenify_panel = '';
+	}
+	document.documentElement.setAttribute("data-techwave-skin", localStorage.frenify_skin);
+	if(localStorage.frenify_panel !== ''){
+		document.documentElement.classList.add(localStorage.frenify_panel);
+	}
+</script>
+
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com/">
+<link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@100;200;300;400;500;600;700;800;900&amp;family=Work+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap" rel="stylesheet">
+
+<!-- Styles -->
+<link type="text/css" rel="stylesheet" href="css/plugins8a54.css?ver=1.0.0" />
+<link type="text/css" rel="stylesheet" href="css/style8a54.css?ver=1.0.0" />
+<style>
+	body {
+		margin: 0;
+		padding: 0;
+		font-family: 'Work Sans', sans-serif;
+		background: #f8f9fa;
+	}
+	
+	/* Navigation */
+	.sidebar {
+		position: fixed;
+		left: 0;
+		top: 0;
+		width: 250px;
+		height: 100vh;
+		background: white;
+		box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+		z-index: 1000;
+	}
+	
+	.sidebar-header {
+		padding: 20px;
+		border-bottom: 1px solid #e1e5e9;
+	}
+	
+	.sidebar-header img {
+		height: 40px;
+	}
+	
+	.nav-menu {
+		padding: 20px 0;
+	}
+	
+	.nav-item {
+		padding: 15px 20px;
+		display: flex;
+		align-items: center;
+		gap: 15px;
+		text-decoration: none;
+		color: #555;
+		transition: all 0.3s ease;
+		border-left: 3px solid transparent;
+	}
+	
+	.nav-item:hover, .nav-item.active {
+		background: #f8f9fa;
+		color: #667eea;
+		border-left-color: #667eea;
+	}
+	
+	.nav-item i {
+		font-size: 1.2rem;
+		width: 20px;
+	}
+	
+	/* Main Content */
+	.main-content {
+		margin-left: 250px;
+		padding: 20px;
+	}
+	
+	.header {
+		background: white;
+		padding: 20px 30px;
+		border-radius: 15px;
+		box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+		margin-bottom: 30px;
+	}
+	
+	.welcome-message {
+		font-size: 1.8rem;
+		font-weight: 700;
+		color: #333;
+		margin-bottom: 10px;
+	}
+	
+	.welcome-subtitle {
+		color: #666;
+		font-size: 1.1rem;
+	}
+	
+	/* Mood Journal */
+	.mood-section {
+		background: white;
+		padding: 30px;
+		border-radius: 15px;
+		box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+		margin-bottom: 30px;
+	}
+	
+	.mood-title {
+		font-size: 1.3rem;
+		font-weight: 600;
+		margin-bottom: 20px;
+		color: #333;
+	}
+	
+	.mood-options {
+		display: flex;
+		gap: 15px;
+		flex-wrap: wrap;
+	}
+	
+	.mood-option {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 8px;
+		padding: 15px;
+		border: 2px solid #e1e5e9;
+		border-radius: 10px;
+		cursor: pointer;
+		transition: all 0.3s ease;
+		min-width: 80px;
+	}
+	
+	.mood-option:hover, .mood-option.selected {
+		border-color: #667eea;
+		background: #f8f9ff;
+	}
+	
+	.mood-emoji {
+		font-size: 2rem;
+	}
+	
+	.mood-label {
+		font-size: 0.9rem;
+		color: #555;
+		font-weight: 500;
+	}
+	
+	/* Quick Access Widgets */
+	.widgets-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+		gap: 20px;
+		margin-bottom: 30px;
+	}
+	
+	.widget {
+		background: white;
+		padding: 25px;
+		border-radius: 15px;
+		box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+		transition: transform 0.3s ease;
+	}
+	
+	.widget:hover {
+		transform: translateY(-2px);
+	}
+	
+	.widget-header {
+		display: flex;
+		align-items: center;
+		gap: 15px;
+		margin-bottom: 20px;
+	}
+	
+	.widget-icon {
+		font-size: 2rem;
+		width: 50px;
+		height: 50px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border-radius: 10px;
+	}
+	
+	.widget-title {
+		font-size: 1.2rem;
+		font-weight: 600;
+		color: #333;
+	}
+	
+	.widget-content {
+		color: #666;
+		line-height: 1.6;
+	}
+	
+	.widget-action {
+		margin-top: 15px;
+	}
+	
+	.widget-btn {
+		display: inline-block;
+		padding: 10px 20px;
+		background: #667eea;
+		color: white;
+		text-decoration: none;
+		border-radius: 8px;
+		font-weight: 500;
+		transition: background 0.3s ease;
+	}
+	
+	.widget-btn:hover {
+		background: #5a6fd8;
+	}
+	
+	/* Appointments Widget */
+	.appointment-item {
+		padding: 15px;
+		border: 1px solid #e1e5e9;
+		border-radius: 8px;
+		margin-bottom: 10px;
+	}
+	
+	.appointment-date {
+		font-weight: 600;
+		color: #333;
+		margin-bottom: 5px;
+	}
+	
+	.appointment-details {
+		color: #666;
+		font-size: 0.9rem;
+	}
+	
+	/* Resources Widget */
+	.resource-item {
+		padding: 10px 0;
+		border-bottom: 1px solid #f0f0f0;
+	}
+	
+	.resource-item:last-child {
+		border-bottom: none;
+	}
+	
+	.resource-title {
+		font-weight: 500;
+		color: #333;
+		margin-bottom: 5px;
+	}
+	
+	.resource-category {
+		font-size: 0.8rem;
+		color: #667eea;
+		background: #f0f4ff;
+		padding: 2px 8px;
+		border-radius: 12px;
+		display: inline-block;
+	}
+	
+	/* Forum Widget */
+	.forum-item {
+		padding: 10px 0;
+		border-bottom: 1px solid #f0f0f0;
+	}
+	
+	.forum-item:last-child {
+		border-bottom: none;
+	}
+	
+	.forum-title {
+		font-weight: 500;
+		color: #333;
+		margin-bottom: 5px;
+	}
+	
+	.forum-meta {
+		font-size: 0.8rem;
+		color: #666;
+	}
+</style>
+</head>
+
+<body>
+
+<!-- Sidebar Navigation -->
+<div class="sidebar">
+	<div class="sidebar-header">
+		<img src="img/sahayata-logo.png" alt="Project Sahayata">
+	</div>
+	
+	<nav class="nav-menu">
+		<a href="dashboard.html" class="nav-item active">
+			<i>🏠</i>
+			<span>Dashboard</span>
+		</a>
+		<a href="ai-chat-bot.html" class="nav-item">
+			<i>🤖</i>
+			<span>AI Companion</span>
+		</a>
+		<a href="booking.html" class="nav-item">
+			<i>👨‍⚕️</i>
+			<span>Book Session</span>
+		</a>
+		<a href="resources.html" class="nav-item">
+			<i>📚</i>
+			<span>Resource Hub</span>
+		</a>
+		<a href="forum.html" class="nav-item">
+			<i>👥</i>
+			<span>Peer Forum</span>
+		</a>
+		<a href="user-profile.html" class="nav-item">
+			<i>👤</i>
+			<span>My Profile</span>
+		</a>
+		<a href="sign-in.html" class="nav-item">
+			<i>🚪</i>
+			<span>Logout</span>
+		</a>
+	</nav>
+</div>
+
+<!-- Main Content -->
+<div class="main-content">
+	<!-- Header -->
+	<div class="header">
+		<h1 class="welcome-message">Welcome back, Sarah!</h1>
+		<p class="welcome-subtitle">How are you feeling today? Take a moment to check in with yourself.</p>
+	</div>
+	
+	<!-- Mood Journal -->
+	<div class="mood-section">
+		<h2 class="mood-title">How are you feeling today?</h2>
+		<div class="mood-options">
+			<div class="mood-option" onclick="selectMood(this, 'great')">
+				<div class="mood-emoji">😊</div>
+				<div class="mood-label">Great</div>
+			</div>
+			<div class="mood-option" onclick="selectMood(this, 'good')">
+				<div class="mood-emoji">🙂</div>
+				<div class="mood-label">Good</div>
+			</div>
+			<div class="mood-option" onclick="selectMood(this, 'okay')">
+				<div class="mood-emoji">😐</div>
+				<div class="mood-label">Okay</div>
+			</div>
+			<div class="mood-option" onclick="selectMood(this, 'down')">
+				<div class="mood-emoji">😔</div>
+				<div class="mood-label">Down</div>
+			</div>
+			<div class="mood-option" onclick="selectMood(this, 'struggling')">
+				<div class="mood-emoji">😢</div>
+				<div class="mood-label">Struggling</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- Quick Access Widgets -->
+	<div class="widgets-grid">
+		<!-- AI Companion Widget -->
+		<div class="widget">
+			<div class="widget-header">
+				<div class="widget-icon" style="background: #e3f2fd;">🤖</div>
+				<h3 class="widget-title">AI Wellness Companion</h3>
+			</div>
+			<div class="widget-content">
+				<p>Need someone to talk to? Our AI companion is available 24/7 for confidential support and guidance.</p>
+			</div>
+			<div class="widget-action">
+				<a href="ai-chat-bot.html" class="widget-btn">Start Conversation</a>
+			</div>
+		</div>
+		
+		<!-- Appointments Widget -->
+		<div class="widget">
+			<div class="widget-header">
+				<div class="widget-icon" style="background: #f3e5f5;">👨‍⚕️</div>
+				<h3 class="widget-title">Upcoming Appointments</h3>
+			</div>
+			<div class="widget-content">
+				<div class="appointment-item">
+					<div class="appointment-date">Tomorrow, 2:00 PM</div>
+					<div class="appointment-details">Dr. Priya Sharma - Stress Management</div>
+				</div>
+				<p style="margin-top: 15px; font-size: 0.9rem; color: #666;">No other appointments scheduled</p>
+			</div>
+			<div class="widget-action">
+				<a href="booking.html" class="widget-btn">Book New Session</a>
+			</div>
+		</div>
+		
+		<!-- Resources Widget -->
+		<div class="widget">
+			<div class="widget-header">
+				<div class="widget-icon" style="background: #e8f5e8;">📚</div>
+				<h3 class="widget-title">Suggested Resources</h3>
+			</div>
+			<div class="widget-content">
+				<div class="resource-item">
+					<div class="resource-title">Managing Exam Stress</div>
+					<div class="resource-category">Academic Stress</div>
+				</div>
+				<div class="resource-item">
+					<div class="resource-title">Breathing Exercises for Anxiety</div>
+					<div class="resource-category">Relaxation</div>
+				</div>
+				<div class="resource-item">
+					<div class="resource-title">Building Healthy Sleep Habits</div>
+					<div class="resource-category">Wellness</div>
+				</div>
+			</div>
+			<div class="widget-action">
+				<a href="resources.html" class="widget-btn">View All Resources</a>
+			</div>
+		</div>
+		
+		<!-- Forum Widget -->
+		<div class="widget">
+			<div class="widget-header">
+				<div class="widget-icon" style="background: #fff3e0;">👥</div>
+				<h3 class="widget-title">Latest Forum Activity</h3>
+			</div>
+			<div class="widget-content">
+				<div class="forum-item">
+					<div class="forum-title">Tips for managing group project stress</div>
+					<div class="forum-meta">5 replies • 2 hours ago</div>
+				</div>
+				<div class="forum-item">
+					<div class="forum-title">Anyone else feeling overwhelmed with deadlines?</div>
+					<div class="forum-meta">12 replies • 4 hours ago</div>
+				</div>
+				<div class="forum-item">
+					<div class="forum-title">How to stay motivated during online classes</div>
+					<div class="forum-meta">8 replies • 6 hours ago</div>
+				</div>
+			</div>
+			<div class="widget-action">
+				<a href="forum.html" class="widget-btn">Join Discussion</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Scripts -->
+<script type="text/javascript" src="js/jquery8a54.js?ver=1.0.0"></script>
+<script type="text/javascript" src="js/plugins8a54.js?ver=1.0.0"></script>
+<script type="text/javascript" src="js/init8a54.js?ver=1.0.0"></script>
+
+<script>
+function selectMood(element, mood) {
+	// Remove selected class from all options
+	document.querySelectorAll('.mood-option').forEach(option => {
+		option.classList.remove('selected');
+	});
+	
+	// Add selected class to clicked option
+	element.classList.add('selected');
+	
+	// Here you would typically send the mood data to your backend
+	console.log('Mood selected:', mood);
+	
+	// Show confirmation
+	setTimeout(() => {
+		alert('Thank you for checking in! Your mood has been recorded.');
+	}, 500);
+}
+
+// Simulate loading user data
+document.addEventListener('DOMContentLoaded', function() {
+	// In a real application, you would fetch user data from the backend
+	const userName = localStorage.getItem('userName') || 'Sarah';
+	document.querySelector('.welcome-message').textContent = `Welcome back, ${userName}!`;
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile - Project Sahayata</title>
+    <link rel="icon" type="image/x-icon" href="img/sahayata-logo.png">
+    <meta name="description" content="Manage your profile and preferences in Project Sahayata">
+    <meta name="keywords" content="profile, settings, mental health, student wellness">
+    <meta name="author" content="Project Sahayata">
+    <meta property="og:title" content="My Profile - Project Sahayata">
+    <meta property="og:description" content="Manage your profile and preferences">
+    <meta property="og:type" content="website">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f7fa;
+            color: #333;
+        }
+
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 280px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+        }
+
+        .sidebar-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .sidebar-header img {
+            width: 60px;
+            height: 60px;
+            margin-bottom: 10px;
+        }
+
+        .nav-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            text-decoration: none;
+            color: white;
+            border-radius: 8px;
+            transition: background-color 0.3s;
+        }
+
+        .nav-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-item.active {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .main-content {
+            flex: 1;
+            margin-left: 280px;
+            padding: 30px;
+        }
+
+        .page-header {
+            margin-bottom: 30px;
+        }
+
+        .page-title {
+            font-size: 28px;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 8px;
+        }
+
+        .page-subtitle {
+            color: #7f8c8d;
+            font-size: 16px;
+        }
+
+        .profile-container {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 30px;
+            max-width: 1200px;
+        }
+
+        .profile-card {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .profile-avatar {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .avatar-circle {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            color: white;
+            margin: 0 auto 15px;
+        }
+
+        .profile-name {
+            font-size: 24px;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+
+        .profile-role {
+            color: #7f8c8d;
+            font-size: 14px;
+        }
+
+        .profile-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .stat-number {
+            font-size: 24px;
+            font-weight: 600;
+            color: #667eea;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: #7f8c8d;
+            margin-top: 5px;
+        }
+
+        .edit-profile-btn {
+            width: 100%;
+            padding: 12px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 20px;
+        }
+
+        .edit-profile-btn:hover {
+            background: #5a6fd8;
+        }
+
+        .details-section {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #ecf0f1;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            font-weight: 500;
+            color: #2c3e50;
+            margin-bottom: 8px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ecf0f1;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .save-btn {
+            background: #27ae60;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .save-btn:hover {
+            background: #229954;
+        }
+
+        .cancel-btn {
+            background: #95a5a6;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-left: 10px;
+        }
+
+        .cancel-btn:hover {
+            background: #7f8c8d;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .preferences-section {
+            margin-top: 30px;
+        }
+
+        .preference-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #ecf0f1;
+        }
+
+        .preference-item:last-child {
+            border-bottom: none;
+        }
+
+        .preference-label {
+            font-weight: 500;
+            color: #2c3e50;
+        }
+
+        .toggle-switch {
+            position: relative;
+            width: 50px;
+            height: 24px;
+            background: #bdc3c7;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .toggle-switch.active {
+            background: #27ae60;
+        }
+
+        .toggle-switch::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: white;
+            border-radius: 50%;
+            top: 2px;
+            left: 2px;
+            transition: transform 0.3s;
+        }
+
+        .toggle-switch.active::after {
+            transform: translateX(26px);
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+            }
+
+            .main-content {
+                margin-left: 0;
+                padding: 20px;
+            }
+
+            .profile-container {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <img src="img/sahayata-logo.png" alt="Project Sahayata">
+                <h3>Project Sahayata</h3>
+            </div>
+            <nav class="nav-menu">
+                <a href="dashboard.html" class="nav-item">
+                    <i>🏠</i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="ai-chat-bot.html" class="nav-item">
+                    <i>🤖</i>
+                    <span>AI Companion</span>
+                </a>
+                <a href="booking.html" class="nav-item">
+                    <i>📅</i>
+                    <span>Book Session</span>
+                </a>
+                <a href="resources.html" class="nav-item">
+                    <i>📚</i>
+                    <span>Resource Hub</span>
+                </a>
+                <a href="forum.html" class="nav-item">
+                    <i>💬</i>
+                    <span>Peer Forum</span>
+                </a>
+                <a href="user-profile.html" class="nav-item active">
+                    <i>👤</i>
+                    <span>My Profile</span>
+                </a>
+                <a href="user-settings.html" class="nav-item">
+                    <i>⚙️</i>
+                    <span>Settings</span>
+                </a>
+                <a href="sign-in.html" class="nav-item">
+                    <i>🚪</i>
+                    <span>Logout</span>
+                </a>
+            </nav>
+        </div>
+
+        <div class="main-content">
+            <div class="page-header">
+                <h1 class="page-title">My Profile</h1>
+                <p class="page-subtitle">Manage your personal information and preferences</p>
+            </div>
+
+            <div class="profile-container">
+                <div class="profile-card">
+                    <div class="profile-avatar">
+                        <div class="avatar-circle" id="userAvatar">
+                            👤
+                        </div>
+                        <h2 class="profile-name" id="userName">Sarah Johnson</h2>
+                        <p class="profile-role">Student</p>
+                    </div>
+
+                    <div class="profile-stats">
+                        <div class="stat-item">
+                            <div class="stat-number" id="sessionsCount">3</div>
+                            <div class="stat-label">Sessions</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number" id="resourcesViewed">12</div>
+                            <div class="stat-label">Resources</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number" id="forumPosts">5</div>
+                            <div class="stat-label">Forum Posts</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number" id="chatSessions">8</div>
+                            <div class="stat-label">Chat Sessions</div>
+                        </div>
+                    </div>
+
+                    <button class="edit-profile-btn" onclick="toggleEditMode()">Edit Profile</button>
+                </div>
+
+                <div class="details-section">
+                    <h3 class="section-title">Personal Information</h3>
+                    
+                    <form id="profileForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Full Name</label>
+                                <input type="text" class="form-input" id="fullName" value="Sarah Johnson" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Student ID</label>
+                                <input type="text" class="form-input" id="studentId" value="STU2024001" disabled>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Email</label>
+                                <input type="email" class="form-input" id="email" value="sarah.johnson@university.edu" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Phone Number</label>
+                                <input type="tel" class="form-input" id="phone" value="+1 (555) 123-4567" disabled>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Department</label>
+                            <input type="text" class="form-input" id="department" value="Computer Science" disabled>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Year of Study</label>
+                            <select class="form-input" id="yearOfStudy" disabled>
+                                <option value="1">1st Year</option>
+                                <option value="2" selected>2nd Year</option>
+                                <option value="3">3rd Year</option>
+                                <option value="4">4th Year</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Emergency Contact</label>
+                            <input type="text" class="form-input" id="emergencyContact" value="John Johnson (Father) - +1 (555) 987-6543" disabled>
+                        </div>
+
+                        <div class="button-group" id="editButtons" style="display: none;">
+                            <button type="button" class="save-btn" onclick="saveProfile()">Save Changes</button>
+                            <button type="button" class="cancel-btn" onclick="cancelEdit()">Cancel</button>
+                        </div>
+                    </form>
+
+                    <div class="preferences-section">
+                        <h3 class="section-title">Preferences</h3>
+                        
+                        <div class="preference-item">
+                            <span class="preference-label">Email Notifications</span>
+                            <div class="toggle-switch active" onclick="togglePreference(this, 'emailNotifications')"></div>
+                        </div>
+                        
+                        <div class="preference-item">
+                            <span class="preference-label">SMS Reminders</span>
+                            <div class="toggle-switch" onclick="togglePreference(this, 'smsReminders')"></div>
+                        </div>
+                        
+                        <div class="preference-item">
+                            <span class="preference-label">Anonymous Forum Posts</span>
+                            <div class="toggle-switch active" onclick="togglePreference(this, 'anonymousPosts')"></div>
+                        </div>
+                        
+                        <div class="preference-item">
+                            <span class="preference-label">Weekly Wellness Check-ins</span>
+                            <div class="toggle-switch active" onclick="togglePreference(this, 'weeklyCheckins')"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Load user data
+        function loadUserData() {
+            // In a real app, this would fetch from the backend
+            const userData = {
+                name: 'Sarah Johnson',
+                studentId: 'STU2024001',
+                email: 'sarah.johnson@university.edu',
+                phone: '+1 (555) 123-4567',
+                department: 'Computer Science',
+                yearOfStudy: '2',
+                emergencyContact: 'John Johnson (Father) - +1 (555) 987-6543',
+                stats: {
+                    sessions: 3,
+                    resources: 12,
+                    forumPosts: 5,
+                    chatSessions: 8
+                }
+            };
+
+            // Update UI with user data
+            document.getElementById('userName').textContent = userData.name;
+            document.getElementById('fullName').value = userData.name;
+            document.getElementById('studentId').value = userData.studentId;
+            document.getElementById('email').value = userData.email;
+            document.getElementById('phone').value = userData.phone;
+            document.getElementById('department').value = userData.department;
+            document.getElementById('yearOfStudy').value = userData.yearOfStudy;
+            document.getElementById('emergencyContact').value = userData.emergencyContact;
+
+            // Update stats
+            document.getElementById('sessionsCount').textContent = userData.stats.sessions;
+            document.getElementById('resourcesViewed').textContent = userData.stats.resources;
+            document.getElementById('forumPosts').textContent = userData.stats.forumPosts;
+            document.getElementById('chatSessions').textContent = userData.stats.chatSessions;
+
+            // Update avatar with initials
+            const initials = userData.name.split(' ').map(n => n[0]).join('');
+            document.getElementById('userAvatar').textContent = initials;
+        }
+
+        // Toggle edit mode
+        function toggleEditMode() {
+            const inputs = document.querySelectorAll('.form-input');
+            const editButtons = document.getElementById('editButtons');
+            const editBtn = document.querySelector('.edit-profile-btn');
+
+            inputs.forEach(input => {
+                if (input.id !== 'studentId') { // Don't allow editing student ID
+                    input.disabled = !input.disabled;
+                }
+            });
+
+            if (editButtons.style.display === 'none') {
+                editButtons.style.display = 'flex';
+                editBtn.textContent = 'Cancel Edit';
+                editBtn.style.background = '#e74c3c';
+            } else {
+                editButtons.style.display = 'none';
+                editBtn.textContent = 'Edit Profile';
+                editBtn.style.background = '#667eea';
+                // Reset form to original values
+                loadUserData();
+            }
+        }
+
+        // Save profile changes
+        function saveProfile() {
+            const formData = {
+                fullName: document.getElementById('fullName').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                department: document.getElementById('department').value,
+                yearOfStudy: document.getElementById('yearOfStudy').value,
+                emergencyContact: document.getElementById('emergencyContact').value
+            };
+
+            // In a real app, this would send to the backend
+            console.log('Saving profile:', formData);
+
+            // Update UI
+            document.getElementById('userName').textContent = formData.fullName;
+            const initials = formData.fullName.split(' ').map(n => n[0]).join('');
+            document.getElementById('userAvatar').textContent = initials;
+
+            // Exit edit mode
+            toggleEditMode();
+
+            // Show success message
+            alert('Profile updated successfully!');
+        }
+
+        // Cancel edit
+        function cancelEdit() {
+            toggleEditMode();
+        }
+
+        // Toggle preferences
+        function togglePreference(element, preference) {
+            element.classList.toggle('active');
+            
+            // In a real app, this would save to the backend
+            console.log(`${preference}: ${element.classList.contains('active')}`);
+        }
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            loadUserData();
+        });
+    </script>
+</body>
+</html>

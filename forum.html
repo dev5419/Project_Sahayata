@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">   
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<link href="img/sahayata-logo.png" rel="icon">
+<title>Peer Forum - Project Sahayata</title>
+
+<script>
+	if (!localStorage.frenify_skin) {
+		localStorage.frenify_skin = 'light';
+	}
+	document.documentElement.setAttribute("data-techwave-skin", localStorage.frenify_skin);
+</script>
+
+<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link type="text/css" rel="stylesheet" href="css/plugins8a54.css?ver=1.0.0" />
+<link type="text/css" rel="stylesheet" href="css/style8a54.css?ver=1.0.0" />
+
+<style>
+	body {
+		margin: 0;
+		padding: 0;
+		font-family: 'Work Sans', sans-serif;
+		background: #f8f9fa;
+	}
+	
+	.sidebar {
+		position: fixed;
+		left: 0;
+		top: 0;
+		width: 250px;
+		height: 100vh;
+		background: white;
+		box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+		z-index: 1000;
+	}
+	
+	.sidebar-header {
+		padding: 20px;
+		border-bottom: 1px solid #e1e5e9;
+	}
+	
+	.sidebar-header img {
+		height: 40px;
+	}
+	
+	.nav-menu {
+		padding: 20px 0;
+	}
+	
+	.nav-item {
+		padding: 15px 20px;
+		display: flex;
+		align-items: center;
+		gap: 15px;
+		text-decoration: none;
+		color: #555;
+		transition: all 0.3s ease;
+		border-left: 3px solid transparent;
+	}
+	
+	.nav-item:hover, .nav-item.active {
+		background: #f8f9fa;
+		color: #667eea;
+		border-left-color: #667eea;
+	}
+	
+	.main-content {
+		margin-left: 250px;
+		padding: 20px;
+	}
+	
+	.page-header {
+		background: white;
+		padding: 30px;
+		border-radius: 15px;
+		box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+		margin-bottom: 30px;
+	}
+	
+	.page-title {
+		font-size: 2rem;
+		font-weight: 700;
+		color: #333;
+		margin-bottom: 10px;
+	}
+	
+	.page-subtitle {
+		color: #666;
+		font-size: 1.1rem;
+		margin-bottom: 20px;
+	}
+	
+	.new-discussion-btn {
+		display: inline-block;
+		padding: 12px 25px;
+		background: #4CAF50;
+		color: white;
+		text-decoration: none;
+		border-radius: 8px;
+		font-weight: 600;
+		transition: background 0.3s ease;
+	}
+	
+	.new-discussion-btn:hover {
+		background: #45a049;
+	}
+	
+	.forum-container {
+		display: grid;
+		grid-template-columns: 1fr 300px;
+		gap: 30px;
+	}
+	
+	.threads-section {
+		background: white;
+		border-radius: 15px;
+		padding: 30px;
+		box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+	}
+	
+	.section-title {
+		font-size: 1.5rem;
+		font-weight: 600;
+		color: #333;
+		margin-bottom: 25px;
+	}
+	
+	.thread-item {
+		padding: 20px;
+		border: 1px solid #e1e5e9;
+		border-radius: 10px;
+		margin-bottom: 15px;
+		transition: all 0.3s ease;
+		cursor: pointer;
+	}
+	
+	.thread-item:hover {
+		border-color: #667eea;
+		background: #f8f9ff;
+	}
+	
+	.thread-title {
+		font-size: 1.1rem;
+		font-weight: 600;
+		color: #333;
+		margin-bottom: 5px;
+	}
+	
+	.thread-author {
+		color: #667eea;
+		font-size: 0.9rem;
+		margin-bottom: 10px;
+	}
+	
+	.thread-preview {
+		color: #666;
+		line-height: 1.5;
+		margin-bottom: 15px;
+	}
+	
+	.thread-meta {
+		display: flex;
+		gap: 20px;
+		font-size: 0.8rem;
+		color: #999;
+	}
+	
+	.forum-sidebar {
+		background: white;
+		border-radius: 15px;
+		padding: 25px;
+		box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+		height: fit-content;
+	}
+	
+	.sidebar-title {
+		font-size: 1.2rem;
+		font-weight: 600;
+		color: #333;
+		margin-bottom: 20px;
+	}
+	
+	.stat-item {
+		display: flex;
+		justify-content: space-between;
+		padding: 10px 0;
+		border-bottom: 1px solid #f0f0f0;
+	}
+	
+	.stat-label {
+		color: #666;
+	}
+	
+	.stat-value {
+		font-weight: 600;
+		color: #333;
+	}
+	
+	.community-guidelines {
+		background: #f8f9ff;
+		padding: 20px;
+		border-radius: 10px;
+		margin-top: 20px;
+	}
+	
+	.guidelines-title {
+		font-weight: 600;
+		color: #333;
+		margin-bottom: 10px;
+	}
+	
+	.guidelines-list {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+	}
+	
+	.guidelines-list li {
+		padding: 5px 0;
+		color: #666;
+		font-size: 0.9rem;
+		line-height: 1.4;
+	}
+	
+	.guidelines-list li:before {
+		content: "✓";
+		color: #4CAF50;
+		font-weight: bold;
+		margin-right: 8px;
+	}
+</style>
+</head>
+
+<body>
+
+<div class="sidebar">
+	<div class="sidebar-header">
+		<img src="img/sahayata-logo.png" alt="Project Sahayata">
+	</div>
+	
+	<nav class="nav-menu">
+		<a href="dashboard.html" class="nav-item">
+			<span>🏠</span>
+			<span>Dashboard</span>
+		</a>
+		<a href="ai-chat-bot.html" class="nav-item">
+			<span>🤖</span>
+			<span>AI Companion</span>
+		</a>
+		<a href="booking.html" class="nav-item">
+			<span>👨‍⚕️</span>
+			<span>Book Session</span>
+		</a>
+		<a href="resources.html" class="nav-item">
+			<span>📚</span>
+			<span>Resource Hub</span>
+		</a>
+		<a href="forum.html" class="nav-item active">
+			<span>👥</span>
+			<span>Peer Forum</span>
+		</a>
+		<a href="user-profile.html" class="nav-item">
+			<span>👤</span>
+			<span>My Profile</span>
+		</a>
+		<a href="sign-in.html" class="nav-item">
+			<span>🚪</span>
+			<span>Logout</span>
+		</a>
+	</nav>
+</div>
+
+<div class="main-content">
+	<div class="page-header">
+		<h1 class="page-title">Peer Support Forum</h1>
+		<p class="page-subtitle">Connect anonymously with fellow students. Share experiences and find community in a safe, moderated space.</p>
+		<a href="#" class="new-discussion-btn" onclick="alert('New discussion feature coming soon!')">Start a New Discussion</a>
+	</div>
+	
+	<div class="forum-container">
+		<div class="threads-section">
+			<h2 class="section-title">Recent Discussions</h2>
+			<div id="threadsList">
+				<div class="thread-item">
+					<div class="thread-title">Tips for managing group project stress</div>
+					<div class="thread-author">by Anonymous</div>
+					<div class="thread-preview">I'm really struggling with my group project. My teammates aren't contributing equally and I feel like I'm doing all the work. The deadline is approaching and I'm getting really stressed...</div>
+					<div class="thread-meta">
+						<span>💬 5 replies</span>
+						<span>⏰ 2 hours ago</span>
+					</div>
+				</div>
+				
+				<div class="thread-item">
+					<div class="thread-title">Anyone else feeling overwhelmed with deadlines?</div>
+					<div class="thread-author">by Anonymous</div>
+					<div class="thread-preview">I have 3 assignments due this week and I'm feeling completely overwhelmed. I can't seem to focus on anything. Any advice on how to prioritize and stay calm?</div>
+					<div class="thread-meta">
+						<span>💬 12 replies</span>
+						<span>⏰ 4 hours ago</span>
+					</div>
+				</div>
+				
+				<div class="thread-item">
+					<div class="thread-title">How to stay motivated during online classes</div>
+					<div class="thread-author">by Anonymous</div>
+					<div class="thread-preview">I'm finding it really hard to stay motivated with online classes. I miss the classroom environment and face-to-face interactions. What strategies have worked for you?</div>
+					<div class="thread-meta">
+						<span>💬 8 replies</span>
+						<span>⏰ 6 hours ago</span>
+					</div>
+				</div>
+				
+				<div class="thread-item">
+					<div class="thread-title">Dealing with homesickness</div>
+					<div class="thread-author">by Anonymous</div>
+					<div class="thread-preview">This is my first semester away from home and I'm really missing my family. How do you cope with homesickness while trying to focus on studies?</div>
+					<div class="thread-meta">
+						<span>💬 15 replies</span>
+						<span>⏰ 1 day ago</span>
+					</div>
+				</div>
+				
+				<div class="thread-item">
+					<div class="thread-title">Building confidence for presentations</div>
+					<div class="thread-author">by Anonymous</div>
+					<div class="thread-preview">I have a big presentation coming up and I'm terrified of public speaking. Any tips for building confidence and managing presentation anxiety?</div>
+					<div class="thread-meta">
+						<span>💬 7 replies</span>
+						<span>⏰ 1 day ago</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="forum-sidebar">
+			<div class="forum-stats">
+				<h3 class="sidebar-title">Forum Stats</h3>
+				<div class="stat-item">
+					<span class="stat-label">Total Members</span>
+					<span class="stat-value">1,247</span>
+				</div>
+				<div class="stat-item">
+					<span class="stat-label">Active Discussions</span>
+					<span class="stat-value">89</span>
+				</div>
+				<div class="stat-item">
+					<span class="stat-label">Total Posts</span>
+					<span class="stat-value">2,341</span>
+				</div>
+			</div>
+			
+			<div class="community-guidelines">
+				<h4 class="guidelines-title">Community Guidelines</h4>
+				<ul class="guidelines-list">
+					<li>Be respectful and supportive</li>
+					<li>Maintain anonymity</li>
+					<li>No personal attacks</li>
+					<li>Report inappropriate content</li>
+					<li>Seek professional help when needed</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript" src="js/jquery8a54.js?ver=1.0.0"></script>
+<script type="text/javascript" src="js/plugins8a54.js?ver=1.0.0"></script>
+<script type="text/javascript" src="js/init8a54.js?ver=1.0.0"></script>
+
+</body>
+</html>

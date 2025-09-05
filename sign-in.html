@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">   
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<!-- Favicons -->
+<link href="img/sahayata-logo.png" rel="icon">
+<link href="img/sahayata-logo.png" rel="Project Sahayata">
+<meta name="description" content="Sign in to Project Sahayata - Your Safe Space for Mental Wellness">
+
+<title>Sign In - Project Sahayata</title>
+
+<script>
+	if (!localStorage.frenify_skin) {
+		localStorage.frenify_skin = 'light';
+	}
+	if (!localStorage.frenify_panel) {
+		localStorage.frenify_panel = '';
+	}
+	document.documentElement.setAttribute("data-techwave-skin", localStorage.frenify_skin);
+	if(localStorage.frenify_panel !== ''){
+		document.documentElement.classList.add(localStorage.frenify_panel);
+	}
+</script>
+
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com/">
+<link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@100;200;300;400;500;600;700;800;900&amp;family=Work+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap" rel="stylesheet">
+
+<!-- Styles -->
+<link type="text/css" rel="stylesheet" href="css/plugins8a54.css?ver=1.0.0" />
+<link type="text/css" rel="stylesheet" href="css/style8a54.css?ver=1.0.0" />
+<style>
+	.signin-container {
+		min-height: 100vh;
+		background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding: 20px;
+	}
+	.signin-card {
+		background: white;
+		border-radius: 20px;
+		padding: 40px;
+		box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+		max-width: 500px;
+		width: 100%;
+	}
+	.logo-section {
+		text-align: center;
+		margin-bottom: 30px;
+	}
+	.logo-section img {
+		height: 60px;
+		margin-bottom: 15px;
+	}
+	.form-title {
+		font-size: 2rem;
+		font-weight: 700;
+		color: #333;
+		margin-bottom: 30px;
+		text-align: center;
+	}
+	.form-group {
+		margin-bottom: 20px;
+	}
+	.form-group label {
+		display: block;
+		margin-bottom: 8px;
+		font-weight: 600;
+		color: #555;
+	}
+	.form-group input {
+		width: 100%;
+		padding: 12px 15px;
+		border: 2px solid #e1e5e9;
+		border-radius: 10px;
+		font-size: 16px;
+		transition: border-color 0.3s ease;
+	}
+	.form-group input:focus {
+		outline: none;
+		border-color: #667eea;
+	}
+	.forgot-password {
+		text-align: right;
+		margin-bottom: 20px;
+	}
+	.forgot-password a {
+		color: #667eea;
+		text-decoration: none;
+		font-size: 14px;
+	}
+	.submit-btn {
+		width: 100%;
+		padding: 15px;
+		background: #4CAF50;
+		color: white;
+		border: none;
+		border-radius: 10px;
+		font-size: 16px;
+		font-weight: 600;
+		cursor: pointer;
+		transition: background 0.3s ease;
+	}
+	.submit-btn:hover {
+		background: #45a049;
+	}
+	.signup-link {
+		text-align: center;
+		margin-top: 20px;
+	}
+	.signup-link a {
+		color: #667eea;
+		text-decoration: none;
+		font-weight: 600;
+	}
+	.error-message {
+		color: #f44336;
+		font-size: 14px;
+		margin-top: 5px;
+		display: none;
+	}
+	.demo-login {
+		margin-top: 20px;
+		padding: 15px;
+		background: #f8f9fa;
+		border-radius: 10px;
+		text-align: center;
+	}
+	.demo-login a {
+		color: #667eea;
+		text-decoration: none;
+		font-weight: 600;
+	}
+</style>
+</head>
+
+<body>
+
+<div class="signin-container">
+	<div class="signin-card">
+		<div class="logo-section">
+			<img src="img/sahayata-logo.png" alt="Project Sahayata">
+			<h1 class="form-title">Welcome Back</h1>
+		</div>
+		
+		<form id="signinForm">
+			<div class="form-group">
+				<label for="studentId">Student ID or Email</label>
+				<input type="text" id="studentId" name="studentId" placeholder="Enter your student ID or email" required>
+				<div class="error-message" id="studentIdError"></div>
+			</div>
+			
+			<div class="form-group">
+				<label for="password">Password</label>
+				<input type="password" id="password" name="password" placeholder="Enter your password" required>
+				<div class="error-message" id="passwordError"></div>
+			</div>
+			
+			<div class="forgot-password">
+				<a href="forgot-password.html">Forgot Password?</a>
+			</div>
+			
+			<button type="submit" class="submit-btn">Sign In</button>
+		</form>
+		
+		<div class="signup-link">
+			<p>Not a member? <a href="sign-up.html">Sign Up</a></p>
+		</div>
+		
+		<div class="demo-login">
+			<p>For demo purposes: <a href="dashboard.html">Skip to Dashboard</a></p>
+		</div>
+	</div>
+</div>
+
+<!-- Scripts -->
+<script type="text/javascript" src="js/jquery8a54.js?ver=1.0.0"></script>
+<script type="text/javascript" src="js/plugins8a54.js?ver=1.0.0"></script>
+<script type="text/javascript" src="js/init8a54.js?ver=1.0.0"></script>
+
+<script>
+document.getElementById('signinForm').addEventListener('submit', function(e) {
+	e.preventDefault();
+	
+	// Reset error messages
+	document.querySelectorAll('.error-message').forEach(el => el.style.display = 'none');
+	
+	// Get form values
+	const studentId = document.getElementById('studentId').value.trim();
+	const password = document.getElementById('password').value;
+	
+	// Validation
+	let isValid = true;
+	
+	if (studentId.length < 3) {
+		showError('studentIdError', 'Please enter a valid student ID or email');
+		isValid = false;
+	}
+	
+	if (password.length < 1) {
+		showError('passwordError', 'Please enter your password');
+		isValid = false;
+	}
+	
+	if (isValid) {
+		// Here you would typically send the data to your backend for authentication
+		console.log('Login attempt:', { studentId, password });
+		
+		// For demo purposes, redirect to dashboard
+		alert('Login successful! Redirecting to dashboard...');
+		window.location.href = 'dashboard.html';
+	}
+});
+
+function showError(elementId, message) {
+	const errorElement = document.getElementById(elementId);
+	errorElement.textContent = message;
+	errorElement.style.display = 'block';
+}
+</script>
+
+</body>
+</html>
